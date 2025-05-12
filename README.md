@@ -20,7 +20,7 @@ Search and download GIFs using Tenor’s API in a grid view.
 
 ## Usage
 
-Type `gif <search terms>` to fetch previews:
+Type `gif <search terms>` to fetch autocomplete results:
 
 ![Alfred search for gif](./Assets/search-results.png)
 
