@@ -381,6 +381,8 @@ MIT. Contributions welcome via GitHub PRs or issues.</string>
 			<string>PREVIEW_QUALITY</string>
 		</dict>
 	</array>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
 	<string>1.0.0</string>
 	<key>webaddress</key>
