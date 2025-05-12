@@ -1,4 +1,4 @@
-# ![Alfred Icon](./icon.png) Gif Search Alfred Workflow
+# Gif Search Alfred Workflow
 
 Search and download GIFs using Tenor’s API in a grid view.
 
