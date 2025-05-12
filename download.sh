@@ -24,13 +24,8 @@ if ! curl -fsSL --output "$TEMP_FILE" "$GIF_URL"; then
   exit 1
 fi
 
-# copy the path to clipboard via osascript
-osascript -e "
-on alfred_script(q)
-  set the clipboard to POSIX file q
-end alfred_script
-alfred_script(\"$TEMP_FILE\")
-"
+# copy the path to clipboard 
+open ./CopyFile.app --args $TEMP_FILE
 
 echo "GIF downloaded and path copied to clipboard: $TEMP_FILE"
 exit 0
