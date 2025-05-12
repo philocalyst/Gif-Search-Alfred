@@ -40,6 +40,7 @@ struct Config {
       (env["CACHE_ENABLED"] ?? "true")
       .lowercased() == "true"
 
+    // Using built-in alfred directories for handling
     let scriptURL = URL(fileURLWithPath: CommandLine.arguments[0])
     let workflowDir = scriptURL.deletingLastPathComponent()
     let cacheDirName = env["CACHE_DIR_NAME"] ?? "cache"
@@ -79,10 +80,12 @@ actor CacheManager {
         attributes: nil)
   }
 
+  // We're treating the names that the gifs are named as more or less random. There can be overlap, but it's very rare, and the cache gets reset frequently anyways. A real solution would involve hasing the contents, but that seems a little excessive right now.
   func cachedFilePath(for url: URL) -> URL {
     cacheDirectory.appendingPathComponent(url.lastPathComponent)
   }
 
+  // This could be done on the Alfred side as well, but they have a hard cap of a day or two.
   func cacheGIFIfNotExists(from url: URL) async throws -> URL {
     let fileURL = cachedFilePath(for: url)
     if FileManager.default.fileExists(atPath: fileURL.path) {
@@ -138,6 +141,7 @@ struct MediaFormat: Codable {
 
 // MARK: - Alfred JSON Models
 
+// There exists a Swift library for handling this, but I didn't know if you could pull in external libs while running as a script, so I just rewrote this.
 struct AlfredItem: Codable {
   let uid: String?
   let title: String
@@ -223,6 +227,7 @@ func createAlfredItems(
 ) async
   -> [AlfredItem]
 {
+  // We're using concurrency here even though it's overkill, I'm still expirmenting with how Swift's models work in practice
   await withTaskGroup(of: IndexedItem.self) { group in
     for (idx, result) in results.enumerated() {
       group.addTask {
@@ -290,11 +295,13 @@ func createAlfredItems(
       }
     }
 
+    // Capturing results
     var buffer: [IndexedItem] = []
     for await it in group {
       buffer.append(it)
     }
-    // Preserve original order
+
+    // Preserve original order (Trust Tenor's ranking)
     return buffer.sorted { $0.index < $1.index }
       .map { $0.item }
   }
@@ -370,6 +377,7 @@ struct GIFSearch {
     }
   }
 
+  // REALLY wish I could use swift arg parser, but..
   static func printUsage() {
     let item = AlfredItem(
       uid: nil,
