@@ -75,7 +75,7 @@
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
-				<string>/Users/philocalyst/Projects/Alfred/rbgif/gif_autocomplete.rb</string>
+				<string>./autocomplete.swift</string>
 				<key>subtext</key>
 				<string>Search for your favorite gifs!</string>
 				<key>title</key>
@@ -104,7 +104,7 @@
 				<key>imageaspect</key>
 				<integer>0</integer>
 				<key>inputfile</key>
-				<string>/Users/philocalyst/Projects/Alfred/rbgif/gif_search.rb</string>
+				<string>./search.swift</string>
 				<key>inputtype</key>
 				<integer>1</integer>
 				<key>loadingtext</key>
@@ -129,64 +129,17 @@
 			<key>config</key>
 			<dict>
 				<key>concurrently</key>
-				<false/>
+				<true/>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string># Check if a URL was provided as an argument
-if [ -z "$1" ]; then
-  echo "Error: Please provide a URL as an argument." &gt;&amp;2
-  exit 1
-fi
-
-# Get the URL using curl and grep
-URL=$(curl -f -s "$1" 2&gt;/dev/null | grep -o '"url": "[^"]*\.gif"' | head -1 | cut -d'"' -f4)
-
-#check if URL is empty, and if it is then provide helpful error and exit.
-if [ -z "$URL" ]; then
-    echo "Error: Could not find a .gif URL in the provided page, or curl failed." &gt;&amp;2
-    echo "Please check the URL and try again." &gt;&amp;2
-    exit 1
-fi
-
-# Temp file setup
-TEMP_NAME=$(mktemp); EXTENTION="${URL##*.}"; TEMP_FILE="${TEMP_NAME}.${EXTENTION}"
-
-# Check if mktemp was successful.
-if [ -z "$TEMP_FILE" ]; then
-    echo "Error: Could not create temporary file." &gt;&amp;2
-    exit 1
-fi
-
-# Crucially, set a trap to remove the file on exit
-#trap 'rm -f "$TEMP_FILE"' EXIT HUP INT QUIT TERM
-
-# Download the GIF to the temp file
-if ! curl --fail --location --silent "$URL" --output "$TEMP_FILE"; then
-echo "Error: $TEMP_FILE" &gt;&amp;2
-  echo "Error: Failed to download the GIF from: $URL" &gt;&amp;2
-  exit 1
-fi
-
-# Copy the path to the temp file to the clipboard using osascript
-osascript -e "
-on alfred_script(q)
-    set thePath to q
-    set the clipboard to POSIX file thePath
-end alfred_script
-
-alfred_script(\"$TEMP_FILE\")
-"
-
-echo "GIF downloaded and file path copied to clipboard: $TEMP_FILE"
-
-exit 0</string>
+				<string></string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
-				<string></string>
+				<string>./download.sh</string>
 				<key>type</key>
-				<integer>5</integer>
+				<integer>8</integer>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
