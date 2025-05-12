@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string></string>
+	<string>com.philocalyst.gif-search</string>
+	<key>category</key>
+	<string>Internet</string>
 	<key>connections</key>
 	<dict>
 		<key>181AB455-B85C-4CCE-B4BC-4031F1471640</key>
@@ -44,7 +46,7 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string></string>
+	<string>Philocalyst</string>
 	<key>description</key>
 	<string>Search gifs using grid view!</string>
 	<key>disabled</key>
@@ -382,6 +384,6 @@ MIT. Contributions welcome via GitHub PRs or issues.</string>
 	<key>version</key>
 	<string>1.0.0</string>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/philocalyst/Gif-Search-Alfred</string>
 </dict>
 </plist>
