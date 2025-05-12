@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [1.1.0] – 2025-05-12
+
+### Changed
+- API key input is now optional by default (changed `required` from `true` to `false`)  
+- Upscaled the workflow icon image for better resolution in README and UI  
+- Download script now uses **CopyFile.app** to copy the downloaded GIF’s path to the clipboard  
+
+### Removed
+- Removed obsolete `category` metadata (`Internet`) from `info.plist`  
+- Removed header icon image from the README  
+- Dropped empty `variablesdontexport` array after refactoring validation logic  
+
 ## [1.0.0] – 2025-05-12
 
 ### Added
@@ -20,5 +34,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
-[Unreleased]: https://github.com/your_org/BlueBoy/compare/v1.0.0...HEAD  
+[Unreleased]: https://…/compare/v1.1.0…HEAD
+[1.1.0]: https://…/compare/v1.0.0…v1.1.0  
 [1.0.0]: https://github.com/your/repo/compare/...v1.0.0
