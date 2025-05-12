@@ -29,9 +29,7 @@ struct Config {
 
   static func fromEnvironment() -> Config {
     let env = ProcessInfo.processInfo.environment
-    let apiKey =
-      env["API_KEY"]
-      ?? "AIzaSyCh8JwsTMigtE0Z0unEPRu43mTZMdo-wPM"
+    let apiKey = env["API_KEY"].unsafelyUnwrapped  // We can unwrap here because when this is run with alfred, this is a required field.
     let baseURL = URL(string: "https://tenor.googleapis.com/v2/")!
     let limit = Int(env["MAX_RESULTS"] ?? "") ?? 5
     let previewQuality = env["PREVIEW_QUALITY"] ?? "nanogif"
