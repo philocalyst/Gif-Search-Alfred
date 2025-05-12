@@ -4,8 +4,6 @@
 <dict>
 	<key>bundleid</key>
 	<string>com.philocalyst.gif-search</string>
-	<key>category</key>
-	<string>Internet</string>
 	<key>connections</key>
 	<dict>
 		<key>181AB455-B85C-4CCE-B4BC-4031F1471640</key>
@@ -337,7 +335,7 @@ MIT. Contributions welcome via GitHub PRs or issues.</string>
 				<key>placeholder</key>
 				<string>AIzaSyCh8JwsTMigtE0Z0unEPRu43mTZMdo-wPM</string>
 				<key>required</key>
-				<true/>
+				<false/>
 				<key>trim</key>
 				<true/>
 			</dict>
@@ -381,8 +379,6 @@ MIT. Contributions welcome via GitHub PRs or issues.</string>
 			<string>PREVIEW_QUALITY</string>
 		</dict>
 	</array>
-	<key>variablesdontexport</key>
-	<array/>
 	<key>version</key>
 	<string>1.0.0</string>
 	<key>webaddress</key>
