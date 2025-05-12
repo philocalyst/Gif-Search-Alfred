@@ -302,7 +302,7 @@ func createAlfredItems(
 
 // MARK: - CLI Entry Point
 
-struct GIFSearchCLI {
+struct GIFSearch {
   static func main() async {
     let args = CommandLine.arguments
     guard args.count > 1 else {
@@ -415,4 +415,4 @@ struct GIFSearchCLI {
   }
 }
 
-await GIFSearchCLI.main()
+await GIFSearch.main()
