@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string></string>
+	<key>connections</key>
+	<dict>
+		<key>181AB455-B85C-4CCE-B4BC-4031F1471640</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>371D9A7F-BAA6-43D8-B579-3EDE32C8EC21</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>371D9A7F-BAA6-43D8-B579-3EDE32C8EC21</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>AC936E44-BF1C-4C98-B5DD-3FD7DECA6445</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string></string>
+	<key>description</key>
+	<string>Search gifs using grid view!</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Gif Search</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>gif</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Wait...</string>
+				<key>script</key>
+				<string></string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>/Users/philocalyst/Projects/Alfred/rbgif/gif_autocomplete.rb</string>
+				<key>subtext</key>
+				<string>Search for your favorite gifs!</string>
+				<key>title</key>
+				<string>Gif Search</string>
+				<key>type</key>
+				<integer>8</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>181AB455-B85C-4CCE-B4BC-4031F1471640</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>columncount</key>
+				<integer>5</integer>
+				<key>filterable</key>
+				<true/>
+				<key>fixedorder</key>
+				<false/>
+				<key>imageaspect</key>
+				<integer>0</integer>
+				<key>inputfile</key>
+				<string>/Users/philocalyst/Projects/Alfred/rbgif/gif_search.rb</string>
+				<key>inputtype</key>
+				<integer>1</integer>
+				<key>loadingtext</key>
+				<string></string>
+				<key>showsubtitles</key>
+				<true/>
+				<key>showtitles</key>
+				<true/>
+				<key>subtitlesinfooter</key>
+				<false/>
+				<key>titlesinfooter</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.userinterface.grid</string>
+			<key>uid</key>
+			<string>371D9A7F-BAA6-43D8-B579-3EDE32C8EC21</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string># Check if a URL was provided as an argument
+if [ -z "$1" ]; then
+  echo "Error: Please provide a URL as an argument." &gt;&amp;2
+  exit 1
+fi
+
+# Get the URL using curl and grep
+URL=$(curl -f -s "$1" 2&gt;/dev/null | grep -o '"url": "[^"]*\.gif"' | head -1 | cut -d'"' -f4)
+
+#check if URL is empty, and if it is then provide helpful error and exit.
+if [ -z "$URL" ]; then
+    echo "Error: Could not find a .gif URL in the provided page, or curl failed." &gt;&amp;2
+    echo "Please check the URL and try again." &gt;&amp;2
+    exit 1
+fi
+
+# Temp file setup
+TEMP_NAME=$(mktemp); EXTENTION="${URL##*.}"; TEMP_FILE="${TEMP_NAME}.${EXTENTION}"
+
+# Check if mktemp was successful.
+if [ -z "$TEMP_FILE" ]; then
+    echo "Error: Could not create temporary file." &gt;&amp;2
+    exit 1
+fi
+
+# Crucially, set a trap to remove the file on exit
+#trap 'rm -f "$TEMP_FILE"' EXIT HUP INT QUIT TERM
+
+# Download the GIF to the temp file
+if ! curl --fail --location --silent "$URL" --output "$TEMP_FILE"; then
+echo "Error: $TEMP_FILE" &gt;&amp;2
+  echo "Error: Failed to download the GIF from: $URL" &gt;&amp;2
+  exit 1
+fi
+
+# Copy the path to the temp file to the clipboard using osascript
+osascript -e "
+on alfred_script(q)
+    set thePath to q
+    set the clipboard to POSIX file thePath
+end alfred_script
+
+alfred_script(\"$TEMP_FILE\")
+"
+
+echo "GIF downloaded and file path copied to clipboard: $TEMP_FILE"
+
+exit 0</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>5</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>AC936E44-BF1C-4C98-B5DD-3FD7DECA6445</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>181AB455-B85C-4CCE-B4BC-4031F1471640</key>
+		<dict>
+			<key>xpos</key>
+			<real>125</real>
+			<key>ypos</key>
+			<real>75</real>
+		</dict>
+		<key>371D9A7F-BAA6-43D8-B579-3EDE32C8EC21</key>
+		<dict>
+			<key>xpos</key>
+			<real>185</real>
+			<key>ypos</key>
+			<real>295</real>
+		</dict>
+		<key>AC936E44-BF1C-4C98-B5DD-3FD7DECA6445</key>
+		<dict>
+			<key>xpos</key>
+			<real>435</real>
+			<key>ypos</key>
+			<real>435</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>gif</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>Low</string>
+						<string>nanogif</string>
+					</array>
+					<array>
+						<string>Medium</string>
+						<string>tinygif</string>
+					</array>
+					<array>
+						<string>High</string>
+						<string>gif</string>
+					</array>
+					<array>
+						<string>Video</string>
+						<string>mp4</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>Impacts download speed</string>
+			<key>label</key>
+			<string>Output gif quality</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>GIF_QUALITY</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>defaultvalue</key>
+				<integer>10</integer>
+				<key>markercount</key>
+				<integer>6</integer>
+				<key>maxvalue</key>
+				<integer>50</integer>
+				<key>minvalue</key>
+				<integer>1</integer>
+				<key>onlystoponmarkers</key>
+				<false/>
+				<key>showmarkers</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>Number of preview items</string>
+			<key>type</key>
+			<string>slider</string>
+			<key>variable</key>
+			<string>MAX_RESULTS</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>AIzaSyCh8JwsTMigtE0Z0unEPRu43mTZMdo-wPM</string>
+				<key>placeholder</key>
+				<string>AIzaSyCh8JwsTMigtE0Z0unEPRu43mTZMdo-wPM</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Default uses my own but is a casualty to rate limits, getting your own is free.</string>
+			<key>label</key>
+			<string>Tenor API Key</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>API_KEY</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>tinygif</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>Low</string>
+						<string>nanogif</string>
+					</array>
+					<array>
+						<string>Medium</string>
+						<string>tinygif</string>
+					</array>
+					<array>
+						<string>High</string>
+						<string>gif</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>Increases latency on slow connections</string>
+			<key>label</key>
+			<string>Preview gif quality</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>PREVIEW_QUALITY</string>
+		</dict>
+	</array>
+	<key>version</key>
+	<string></string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
