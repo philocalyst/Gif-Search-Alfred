@@ -264,7 +264,7 @@ func createAlfredItems(
         let title =
           result.contentDescription
           ?? "GIF Result \(result.id)"
-        let subtitle = "Select to copy URL: " + (outputStr != nil ? config.outputQuality : "post")
+        let subtitle = "Select to Download"
         let alt = AlfredItem.Mods.ModAction(
           valid: true,
           arg: previewStr ?? argStr,
