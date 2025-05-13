@@ -42,6 +42,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>E9EEA304-4FDB-4325-B73D-9756D1642543</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>181AB455-B85C-4CCE-B4BC-4031F1471640</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Philocalyst</string>
@@ -56,51 +69,31 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>alfredfiltersresults</key>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>focusedappvariable</key>
 				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<true/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>gif</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>2</integer>
-				<key>runningsubtext</key>
-				<string>Wait...</string>
-				<key>script</key>
+				<key>focusedappvariablename</key>
 				<string></string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string>./autocomplete.swift</string>
-				<key>subtext</key>
-				<string>Search for your favorite gifs!</string>
-				<key>title</key>
-				<string>Gif Search</string>
-				<key>type</key>
-				<integer>8</integer>
-				<key>withspace</key>
-				<true/>
+				<key>hotkey</key>
+				<integer>0</integer>
+				<key>hotmod</key>
+				<integer>0</integer>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
+			<string>alfred.workflow.trigger.hotkey</string>
 			<key>uid</key>
-			<string>181AB455-B85C-4CCE-B4BC-4031F1471640</string>
+			<string>E9EEA304-4FDB-4325-B73D-9756D1642543</string>
 			<key>version</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -155,6 +148,55 @@
 			<string>371D9A7F-BAA6-43D8-B579-3EDE32C8EC21</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>{var:SEARCH_KEYWORD}</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Wait...</string>
+				<key>script</key>
+				<string></string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>./autocomplete.swift</string>
+				<key>subtext</key>
+				<string>Search for your favorite gifs!</string>
+				<key>title</key>
+				<string>Gif Search</string>
+				<key>type</key>
+				<integer>8</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>181AB455-B85C-4CCE-B4BC-4031F1471640</string>
+			<key>version</key>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -239,20 +281,26 @@ MIT. Contributions welcome via GitHub PRs or issues.</string>
 	<dict>
 		<key>181AB455-B85C-4CCE-B4BC-4031F1471640</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>9</integer>
 			<key>xpos</key>
-			<real>125</real>
-			<key>ypos</key>
 			<real>75</real>
+			<key>ypos</key>
+			<real>345</real>
 		</dict>
 		<key>371D9A7F-BAA6-43D8-B579-3EDE32C8EC21</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>2</integer>
 			<key>xpos</key>
-			<real>185</real>
+			<real>285</real>
 			<key>ypos</key>
-			<real>295</real>
+			<real>340</real>
 		</dict>
 		<key>7826CEE6-B5BC-4D83-AEC2-E5934D9D316B</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>9</integer>
 			<key>xpos</key>
 			<real>445</real>
 			<key>ypos</key>
@@ -260,14 +308,52 @@ MIT. Contributions welcome via GitHub PRs or issues.</string>
 		</dict>
 		<key>AC936E44-BF1C-4C98-B5DD-3FD7DECA6445</key>
 		<dict>
+			<key>colorindex</key>
+			<integer>9</integer>
 			<key>xpos</key>
-			<real>435</real>
+			<real>445</real>
 			<key>ypos</key>
 			<real>435</real>
+		</dict>
+		<key>E9EEA304-4FDB-4325-B73D-9756D1642543</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>1</integer>
+			<key>note</key>
+			<string>Thanks for downloading! 
+
+I highly recommend you set a hotkey for this so that it's even easier to trigger it.
+
+I personally set it to double-tapping the ⌘ (command) key.</string>
+			<key>xpos</key>
+			<real>175</real>
+			<key>ypos</key>
+			<real>60</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
 	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>gif</string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string></string>
+			<key>label</key>
+			<string>The keyword for the workflow</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>SEARCH_KEYWORD</string>
+		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
