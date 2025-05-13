@@ -5,6 +5,22 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.2.0] – 2025-05-13
+
+### Added
+- Customizable global hotkey trigger for quick workflow activation (e.g. double-tap ⌘).  
+- `SEARCH_KEYWORD` user-configurable variable to set the Alfred keyword without reopening Preferences.  
+- Informational note in the workflow editor recommending hotkey setup for easier access.  
+- Automatic termination of any previous script run before starting a new one.
+
+### Changed
+- Replaced the initial script-filter trigger with a hotkey-based trigger; updated the script-filter node to read its keyword from `SEARCH_KEYWORD`.  
+- Refined workflow node layout: adjusted positions and color indices for clarity.
+
+### Fixed
+- Corrected changelog compare links: updated `[Unreleased]` to compare from `v1.0.1…HEAD` and `[1.1.0]` to compare `v1.0.0…v1.0.1`.  
+- Standardized the GIF result subtitle to a generic “Select to Download”.
+
 ## [1.1.0] – 2025-05-12
 
 ### Changed
@@ -34,6 +50,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
-[Unreleased]: https://…/compare/v1.0.1…HEAD
-[1.1.0]: https://…/compare/v1.0.0…v1.0.1  
+[Unreleased]: https://…/compare/v1.2.0…HEAD
+[1.2.0]: https://…/compare/v1.1.0…v1.2.0  
+[1.1.0]: https://…/compare/v1.0.0…v1.1.0
 [1.0.0]: https://github.com/your/repo/compare/...v1.0.0
